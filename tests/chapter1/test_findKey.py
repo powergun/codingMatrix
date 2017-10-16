@@ -30,7 +30,9 @@ class TestCrackOneTimePad(unittest.TestCase):
         """
         Uses a brutal force method
         """
+        results = list()
         for i in xrange(31):
-            print i, ''.join(
+            results.append(''.join(
                 [(string.ascii_lowercase + ' ')[Pad(i)(to_binary(d))] for d in data]
-            )
+            ))
+        self.assertTrue('eve is evil' in results)
