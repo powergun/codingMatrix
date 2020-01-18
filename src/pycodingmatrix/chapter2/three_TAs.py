@@ -33,6 +33,9 @@ def str_to_code(s: str) -> [int]:
     return l
 
 
+# source:
+# how to iterate over substrings
+# https://stackoverflow.com/questions/28246628/iterate-through-positions-of-a-substring-in-a-string
 def code_to_str(code: [int]) -> str:
     def segment_to_c(segement: [int]) -> str:
         return chr(int(''.join([str(b) for b in segment]), base=2))
