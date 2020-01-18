@@ -123,8 +123,16 @@ optional = false
 python-versions = "*"
 version = "0.1.8"
 
+[[package]]
+category = "main"
+description = "A formatter for Python code."
+name = "yapf"
+optional = false
+python-versions = "*"
+version = "0.29.0"
+
 [metadata]
-content-hash = "a8e1c4cffc527461b8a87cc1e69b5e4323d1ab8458fc134475de95b6dba17f0a"
+content-hash = "80a0730423d1f58d6b58b921e45a546729a241f4e7aaf0a908455ba140a93576"
 python-versions = "^3.8"
 
 [metadata.files]
@@ -194,4 +202,8 @@ six = [
 wcwidth = [
     {file = "wcwidth-0.1.8-py2.py3-none-any.whl", hash = "sha256:8fd29383f539be45b20bd4df0dc29c20ba48654a41e661925e612311e9f3c603"},
     {file = "wcwidth-0.1.8.tar.gz", hash = "sha256:f28b3e8a6483e5d49e7f8949ac1a78314e740333ae305b4ba5defd3e74fb37a8"},
+]
+yapf = [
+    {file = "yapf-0.29.0-py2.py3-none-any.whl", hash = "sha256:cad8a272c6001b3401de3278238fdc54997b6c2e56baa751788915f879a52fca"},
+    {file = "yapf-0.29.0.tar.gz", hash = "sha256:712e23c468506bf12cadd10169f852572ecc61b266258422d45aaf4ad7ef43de"},
 ]
