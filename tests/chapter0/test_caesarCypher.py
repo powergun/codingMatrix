@@ -1,17 +1,15 @@
-
 import string
 import unittest
 
-from ctm.chapter0 import caesarCypher
+from pycodingmatrix.chapter0 import caesarCypher
 
 
 class TestCaesarCypher(unittest.TestCase):
-
     def setUp(self):
         self.op = caesarCypher.CaesarCypher()
 
     def test_g(self):
-        for i in xrange(26):
+        for i in range(26):
             i_ = self.op.g(i)
             self.assertEqual(i, self.op.g_(i_))
 
@@ -24,4 +22,3 @@ class TestCaesarCypher(unittest.TestCase):
         for C in string.ascii_uppercase:
             C_ = self.op.do(C)
             self.assertEqual(C, self.op.undo(C_))
-
