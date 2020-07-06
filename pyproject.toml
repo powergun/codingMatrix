@@ -8,6 +8,9 @@ authors = ["Wei Ning <macgnw@gmail.com>"]
 python = "^3.8"
 numpy = "*"
 yapf = "*"
+pylint = "^2.5.3"
+jupyter = "^1.0.0"
+sympy = "^1.6.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
