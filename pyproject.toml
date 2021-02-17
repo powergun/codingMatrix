@@ -6,11 +6,12 @@ authors = ["Wei Ning <macgnw@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-numpy = "*"
-yapf = "*"
+numpy = "^1.20.1"
+yapf = "^0.30.0"
 pylint = "^2.5.3"
 jupyter = "^1.0.0"
 sympy = "^1.6.1"
+matplotlib = "^3.3.4"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
