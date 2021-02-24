@@ -1,7 +1,7 @@
 import string
 import unittest
 
-from pycodingmatrix.chapter0 import caesarCypher
+from pyLinearAlgebra.pycodingmatrix.chapter0 import caesarCypher
 
 
 class TestCaesarCypher(unittest.TestCase):
