@@ -1,6 +1,6 @@
 import unittest
 
-import pyLinearAlgebra.pycodingmatrix.chapter2.three_TAs as sut
+import pylinearalgebra.pycodingmatrix.chapter2.three_TAs as sut
 
 
 class TestThreeTAs(unittest.TestCase):

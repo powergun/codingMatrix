@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "pyCodingMatrix"
+name = "pyLinearAlgebra"
 version = "0.1.0"
 description = ""
 authors = ["Wei Ning <macgnw@gmail.com>"]

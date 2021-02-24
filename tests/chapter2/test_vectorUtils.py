@@ -2,7 +2,7 @@ import unittest
 
 import numpy
 
-from pyLinearAlgebra.pycodingmatrix.chapter2 import vectorUtils
+from pylinearalgebra.pycodingmatrix.chapter2 import vectorUtils
 
 
 class TestCrossProduct(unittest.TestCase):
