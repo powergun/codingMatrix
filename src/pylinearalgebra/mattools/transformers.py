@@ -15,16 +15,18 @@ def rref(mat, I=None):
     # transform it to the reduced row echelon form
 
     m = sympy.Matrix(mat)
+    if I is not None:
+        II = sympy.Matrix(I)
+        assert m.rows == II.rows, 'I must have the same shape as the source matrix!'
+        
     r, i_pivots = m.rref()
 
     # may convert m back the type of mat for convenience
-    def to_list(m):
-        return [m.row(i) for i in range(m.rows())]
 
     if isinstance(mat, list):
-        return to_list(r), list(i_pivots)
+        return r.tolist(), list(i_pivots)
     if isinstance(mat, np.ndarray):
-        return np.array(to_list(r)), np.array(list(i_pivots))
+        return np.array(r), np.array(i_pivots)
     return r, i_pivots
 
 
