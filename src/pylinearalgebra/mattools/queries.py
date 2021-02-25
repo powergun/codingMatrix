@@ -4,32 +4,37 @@ import sympy
 
 
 def rank(mat):
+    m = sympy.Matrix(mat)
+    return m.rank()
+
+
+def dim(space):
     pass
 
 
-def dim(mat):
-    pass
-
-
-def bases(mat):
+def bases(space):
     return []
 
 
-def is_basis(mat, vec):
+def is_basis(space, vec):
     return False
 
 
 def row_space(mat):
-    pass
+    m = sympy.Matrix(mat)
+    return m.rowspace()
 
 
 def col_space(mat):
-    pass
+    m = sympy.Matrix(mat)
+    return m.columnspace()
 
 
 def null_space(mat):
-    pass
+    m = sympy.Matrix(mat)
+    return m.nullspace()
 
 
 def left_null_space(mat):
-    pass
+    m = sympy.Matrix(mat)
+    return m.transpose().nullspace()

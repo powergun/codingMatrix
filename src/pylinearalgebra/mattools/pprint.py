@@ -1,6 +1,8 @@
 
 import sympy
 
+# unicode characters cheatsheet
+# https://unicode-search.net/unicode-namesearch.pl?term=BRACKET
 
 def _get_shape(mat):
     if isinstance(mat, list):
