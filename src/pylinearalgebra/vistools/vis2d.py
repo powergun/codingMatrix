@@ -5,15 +5,20 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 
 class XY:
-    def __init__(self, x_lim=None, y_lim=None):
+    def __init__(self, x_lim=None, y_lim=None, names=None):
         random.seed(42)
 
         # matplotlib color names:
         # https://matplotlib.org/3.1.0/gallery/color/named_colors.html
-        names = list(mcolors.BASE_COLORS) + \
-            list(mcolors.TABLEAU_COLORS)
-        self._colors = names
-        random.shuffle(self._colors)
+        
+        if not names:
+            names = list(mcolors.BASE_COLORS) + \
+                list(mcolors.TABLEAU_COLORS)
+            self._colors = names
+            random.shuffle(self._colors)
+        else:
+            self._colors = names
+            
         self._color_it = itertools.cycle(self._colors)
         self._x_lim = x_lim or (-4, 4)
         self._y_lim = y_lim or (-4, 4)
@@ -30,42 +35,66 @@ class XY:
     def color(self):
         return next(self._color_it)
 
-    def vector(self, fr, to, fr_text=None, to_text=None, shaft_text=None):
+    def vector(
+            #
+            self,
+            fr,
+            to,
+            fr_text=None,
+            to_text=None,
+            shaft_text=None,
+            alpha=None,
+            text_alpha=0.65,
+            shaft_arrow=True,
+            ):
         vert = [fr[0], fr[1], to[0] - fr[0], to[1] - fr[1]]
         half = [vert[0], vert[1], vert[2] / 2.0, vert[3] / 2.0]
         c = self.color()
-        plt.arrow(
-            *half, 
-            head_width=0.15,
-            head_length=0.4,
-            overhang=1.0,
-            color=c,
-        )
-        plt.arrow(
-            *vert, 
-            head_width=0,
-            head_length=0,
-            length_includes_head=True,
-            overhang=1.0,
-            color=c,
-        )
+        if shaft_arrow:
+            plt.arrow(
+                *half,
+                head_width=0.15,
+                head_length=0.4,
+                overhang=1.0,
+                color=c,
+                alpha=alpha,
+            )
+            plt.arrow(
+                *vert,
+                head_width=0,
+                head_length=0,
+                length_includes_head=True,
+                overhang=1.0,
+                color=c,
+                alpha=alpha,
+            )
+        else:
+            plt.arrow(
+                *vert,
+                head_width=0.15,
+                head_length=0.4,
+                length_includes_head=True,
+                overhang=1.0,
+                color=c,
+                alpha=alpha,
+            )
         if fr_text is None and len(fr) > 2 and isinstance(fr[2], str):
             fr_text = fr[2]
 
         if fr_text:
             plt.annotate(
-                fr_text, 
-                [fr[0], fr[1]], 
-                size=20, 
-                alpha=0.65)
+                fr_text,
+                [fr[0], fr[1]],
+                size=20,
+                alpha=text_alpha)
 
         if shaft_text:
             plt.annotate(
-                shaft_text, 
-                [half[0] + half[2], half[1] + half[3]], 
-                size=20, 
-                alpha=0.65)
-        
+                shaft_text,
+                [half[0] + half[2], half[1] + half[3]],
+                size=20,
+                alpha=text_alpha)
+
         return self
 
 
