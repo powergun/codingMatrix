@@ -9,7 +9,10 @@ def rank(mat):
 
 
 def dim(space):
-    return len(bases(space))
+    rows = list(zip(*space))
+    m = sympy.Matrix(rows)
+    r, i_pivots = m.rref()
+    return len(i_pivots)
 
 
 def bases(space):
@@ -17,23 +20,40 @@ def bases(space):
     Params:
         space: a list of column vectors
     """
-    m = sympy.Matrix(zip(*space))
+    rows = list(zip(*space))
+    m = sympy.Matrix(rows)
     r, i_pivots = m.rref()
     return [r[pivot] for pivot in i_pivots]
 
 
 def is_basis(vectors):
-    # are these vectors independent?
-    # see:
-    # https://math.stackexchange.com/questions/421574/how-to-check-if-a-set-of-vectors-is-a-basis
+    n_cols = len(vectors)
+    n_rows = len(vectors[0]) if vectors else 0
+    if n_cols != n_rows:
+        return False
+
+    # ok, it is a square matrix
     rows = list(zip(*vectors))
     m = sympy.Matrix(rows)
-    r, i_pivots = m.rref()
-    return r.cols == len(i_pivots)
+    try:
+        m.inv()
+    except:
+        return False
+    return True
 
 
 def check_independence(vectors):
-    return is_basis(vectors)
+    # are these vectors independent?
+    # see:
+    # https://math.stackexchange.com/questions/421574/how-to-check-if-a-set-of-vectors-is-a-basis
+    
+    # NOTE: to check whether these vectors form a basis
+    #       I need to test whether they are invertible (or
+    #       compute their determinant)
+    rows = list(zip(*vectors))
+    m = sympy.Matrix(rows)
+    r, i_pivots = m.rref()
+    return r.cols == len(i_pivots) 
 
 
 def row_space(mat, tolist=False):
