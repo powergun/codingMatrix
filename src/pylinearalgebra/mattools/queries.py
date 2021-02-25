@@ -26,27 +26,41 @@ def is_basis(vectors):
     # are these vectors independent?
     # see:
     # https://math.stackexchange.com/questions/421574/how-to-check-if-a-set-of-vectors-is-a-basis
-    m = sympy.Matrix(zip(*vectors))
+    rows = list(zip(*vectors))
+    m = sympy.Matrix(rows)
     r, i_pivots = m.rref()
-    return r.columns() == len(i_pivots)
+    return r.cols == len(i_pivots)
 
 
-def row_space(mat):
+def check_independence(vectors):
+    return is_basis(vectors)
+
+
+def row_space(mat, tolist=False):
     m = sympy.Matrix(mat)
-    return m.rref()[0].rowspace()
+    space = m.rref()[0].rowspace()
+    if tolist:
+        return [list(v) for v in space]
+    return space
 
-
-def col_space(mat):
+def col_space(mat, tolist=False):
     m = sympy.Matrix(mat)
-    return m.rref()[0].columnspace()
+    space = m.rref()[0].columnspace()
+    if tolist:
+        return [list(v) for v in space]
+    return space
 
-
-def null_space(mat):
+def null_space(mat, tolist=False):
     m = sympy.Matrix(mat)
-    return m.rref()[0].nullspace()
+    space = m.rref()[0].nullspace()
+    if tolist:
+        return [list(v) for v in space]
+    return space
 
-
-def left_null_space(mat):
+def left_null_space(mat, tolist=False):
     m = sympy.Matrix(mat)
     r, _ = m.rref()
-    return r.transpose().nullspace()
+    space = r.transpose().nullspace()
+    if tolist:
+        return [list(v) for v in space]
+    return space
