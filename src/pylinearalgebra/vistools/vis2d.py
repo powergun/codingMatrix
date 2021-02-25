@@ -10,7 +10,7 @@ class XY:
 
         # matplotlib color names:
         # https://matplotlib.org/3.1.0/gallery/color/named_colors.html
-        
+
         if not names:
             names = list(mcolors.BASE_COLORS) + \
                 list(mcolors.TABLEAU_COLORS)
@@ -18,7 +18,7 @@ class XY:
             random.shuffle(self._colors)
         else:
             self._colors = names
-            
+
         self._color_it = itertools.cycle(self._colors)
         self._x_lim = x_lim or (-4, 4)
         self._y_lim = y_lim or (-4, 4)
@@ -35,6 +35,38 @@ class XY:
     def color(self):
         return next(self._color_it)
 
+    def line(self,
+            #
+            fr,
+            to,
+            alpha=None,
+            color=None,
+            ):
+        if not color:
+            color = self.color()
+        plt.plot(
+            [fr[0], to[0]],
+            [fr[1], to[1]],
+            color=color,
+            alpha=alpha,
+        )
+
+    def fx(self,
+            #
+            xs,
+            f,
+            color=None,
+            alpha=None,
+        ):
+        if not color:
+            color = self.color()
+        plt.plot(
+            xs,
+            [f(x) for x in xs],
+            color=color,
+            alpha=alpha,
+        )
+
     def vector(
             #
             self,
@@ -45,11 +77,12 @@ class XY:
             shaft_text=None,
             alpha=None,
             text_alpha=0.65,
-            shaft_arrow=True,
+            shaft_arrow=False,
+            color=None,
             ):
         vert = [fr[0], fr[1], to[0] - fr[0], to[1] - fr[1]]
         half = [vert[0], vert[1], vert[2] / 2.0, vert[3] / 2.0]
-        c = self.color()
+        c = color or self.color()
         if shaft_arrow:
             plt.arrow(
                 *half,
