@@ -30,6 +30,40 @@ def rref(mat, I=None):
         return np.array(r), np.array(i_pivots)
     return r, i_pivots
 
+def rref_IFZ(mat):
+    # decompose R to [I,   F]
+    #                [*0, *0]
+    # F can be empty if mat is full column rank
+    # the zero row(s) are optional
+    A = sympy.Matrix(mat)
+    R, i_pivots = A.rref()
+    
+    R_cleaned = []
+    Z = []
+    for row_idx in range(R.rows):
+        row = R.row(row_idx)
+        is_zero_row = all([x == 0 for x in row])
+        if is_zero_row:
+            Z.append(row)
+        else:
+            R_cleaned.append(row)
+
+    I = []
+    F = []
+    for row in R_cleaned:
+        I_row = []
+        F_row = []
+        for col_idx in range(R.cols):
+            x = row[col_idx]
+            if col_idx in i_pivots:
+                I_row.append(x)
+            else:
+                F_row.append(x)
+        I.append(I_row)
+        F.append(F_row)
+    return sympy.Matrix(I), sympy.Matrix(F), sympy.Matrix(Z)
+        
+
 
 def T(mat):
     if isinstance(mat, list):
@@ -69,3 +103,15 @@ def inverse(mat):
         return _sympy_inv(mat)
 
     raise ValueError('unsupported format')
+
+
+if __name__ == '__main__':
+    A = [
+        [1, 4, 7],
+        [2, 5, 8],
+        [3, 6, 9]
+    ]
+    I, F, Z = rref_IFZ(A)
+    print(I)
+    print(F)
+    print(Z)

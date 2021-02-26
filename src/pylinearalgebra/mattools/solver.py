@@ -2,6 +2,9 @@ import numpy as np
 import sympy
 import scipy.linalg as la
 
+from pylinearalgebra.mattools.list_utils import flatten
+from pylinearalgebra.mattools.transformers import rref_IFZ
+
 
 def can_solve(A, b):
     A = np.array(A)
@@ -17,24 +20,9 @@ def can_solve(A, b):
     return True
 
 
+# this is still buggy!
 def solve_rn(mat):
-    A = sympy.Matrix(mat)
-
-    # Return reduced row-echelon form of matrix and
-    # indices of pivot vars.
-    R, i_pivots = A.rref()
-    I = np.identity(len(i_pivots))
-    F_rows = []
-    for row_idx in range(R.rows):
-        row = R.row(row_idx)
-        if sum(row) == 0:
-            continue
-        cols = [
-            x for col_idx, x in enumerate(row)
-            if col_idx not in i_pivots
-        ]
-        F_rows.append(cols)
-    F = sympy.Matrix(F_rows)
+    I, F, _ = rref_IFZ(mat)
     F_neg = F * -1
     # N
     # each column of N holds a solution {x1, x2, x3, x4}
@@ -50,7 +38,7 @@ def solve_rn(mat):
             row = F_neg.row(row_idx)
             solution.append(row[col_idx])
         for row_idx in range(I.shape[0]):
-            row = I[row_idx]
+            row = I.row(row_idx)
             solution.append(row[col_idx])
         solutions.append(solution)
     return solutions
@@ -66,3 +54,12 @@ def plu(mat):
     A = np.array(mat)
     p, l, u = la.lu(A, permute_l=False)
     return p, l, u
+
+
+if __name__ == '__main__':
+    A = [
+        [1, 4, 7],
+        [2, 5, 8],
+        [3, 6, 9]
+    ]
+    print(solve_rn(A))

@@ -64,7 +64,7 @@ class TestFindNullspaceSolutions(unittest.TestCase):
             [3, 6, 9]
         ]
         solutions = mt.solve_rn(A)
-        self.assertEqual(solutions, [[-2, 1.0, 0.0]])
+        self.assertEqual(solutions, [[1, -2, 1, 0]])
 
 
 if __name__ == '__main__':
