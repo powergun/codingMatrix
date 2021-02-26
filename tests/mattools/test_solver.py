@@ -53,3 +53,19 @@ class TestFindNullspaceSolutions(unittest.TestCase):
         AT = mt.T(A)
         solutions = mt.solve_rn(AT)
         self.assertEqual([[-1, -1, 1, 0]], solutions)
+
+    def test_chapter1_problem1(self):
+        # source:
+        # MIT18_06SCF11_Ses1.1prob_The_Geometry_of_Linear_Equations
+
+        A = [
+            [1, 4, 7],
+            [2, 5, 8],
+            [3, 6, 9]
+        ]
+        solutions = mt.solve_rn(A)
+        self.assertEqual(solutions, [[-2, 1.0, 0.0]])
+
+
+if __name__ == '__main__':
+    unittest.main()

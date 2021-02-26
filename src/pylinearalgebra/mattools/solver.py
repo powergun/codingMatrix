@@ -1,5 +1,6 @@
 import numpy as np
 import sympy
+import scipy.linalg as la
 
 
 def can_solve(A, b):
@@ -35,7 +36,6 @@ def solve_rn(mat):
         F_rows.append(cols)
     F = sympy.Matrix(F_rows)
     F_neg = F * -1
-
     # N
     # each column of N holds a solution {x1, x2, x3, x4}
 
@@ -43,12 +43,26 @@ def solve_rn(mat):
     # I've added another example below when F-inv has less columns
     # than I;
     # Gilbert also shows that example in the video
-    return [
-        [
-            F_neg.row(0)[col_idx],
-            F_neg.row(1)[col_idx],
-            I[0][col_idx],
-            I[1][col_idx],
-        ]
-        for col_idx in range(F_neg.cols)
-    ]
+    solutions = []
+    for col_idx in range(F_neg.cols):
+        solution = []
+        for row_idx in range(F_neg.rows):
+            row = F_neg.row(row_idx)
+            solution.append(row[col_idx])
+        for row_idx in range(I.shape[0]):
+            row = I[row_idx]
+            solution.append(row[col_idx])
+        solutions.append(solution)
+    return solutions
+
+
+def lu(mat):
+    A = np.array(mat)
+    pl, u = la.lu(A, permute_l=True)
+    return pl, u
+
+
+def plu(mat):
+    A = np.array(mat)
+    p, l, u = la.lu(A, permute_l=False)
+    return p, l, u
