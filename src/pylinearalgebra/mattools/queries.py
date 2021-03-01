@@ -15,15 +15,35 @@ def dim(space):
     return len(i_pivots)
 
 
+# NOTE:
+# this is not right,
+# another way to compute the dim but not the basis is to
+# use AT
+# put these vector into AT and turn them into columns,
+# do elimination (I can use rref), calculate the number
+# of (column) pivots
+# HOWEVER this method does not give me the basis of the
+# space these original vectors span!!!
+# because while doing elimination on AT, I have changed
+# the column space (which IS THE SPACE spanned by the
+# original vectors)
+# I need to take i_pivots and the columns from AT as
+# the basis of the given space
 def bases(space):
     """
     Params:
-        space: a list of column vectors
+        space: a list of vectors
     """
-    rows = list(zip(*space))
-    m = sympy.Matrix(rows)
-    r, i_pivots = m.rref()
-    return [r[pivot] for pivot in i_pivots]
+
+    # - use row matrix and LUdecompose to find the bases
+    # - or still use AT and rref, but take i_pivots and the 
+    #   columns from AT
+
+    # rows = list(zip(*space))
+    # m = sympy.Matrix(rows)
+    # r, i_pivots = m.rref()
+    # return [r[pivot] for pivot in i_pivots]
+    raise NotImplementedError()
 
 
 # NOTE: the condition for some vectors {v1...vn} to
