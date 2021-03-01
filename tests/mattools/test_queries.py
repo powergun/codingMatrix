@@ -185,3 +185,22 @@ class TestRowspace(unittest.TestCase):
         vectors = mt.row_space(m, tolist=True)
         self.assertEqual(3, mt.dim(vectors))
         # dimC(AT) = r = 3 (2 free columns)
+
+
+class TestGetBasesFromSpace(unittest.TestCase):
+    def test_given_dependent_vectors_expect_independent_ones(self):
+        v1 = np.array([1, 2, 3])
+        v2 = np.array([-11, 13, -2])
+        space = [
+            v1.tolist(), 
+            v2.tolist(),
+            (v1 + v2).tolist(),
+            (v1 * 3).tolist(),
+            (v1 * 3 + v2 * -3).tolist(),
+        ]
+        bases = mt.bases(space)
+        self.assertSequenceEqual(bases, [v1.tolist(), v2.tolist()])
+
+
+if __name__ == '__main__':
+    unittest.main()

@@ -2,6 +2,7 @@ import numpy as np
 import scipy.linalg as la
 import sympy
 
+from pylinearalgebra.mattools import list_utils
 
 def rank(mat):
     m = sympy.Matrix(mat)
@@ -34,16 +35,9 @@ def bases(space):
     Params:
         space: a list of vectors
     """
-
-    # - use row matrix and LUdecompose to find the bases
-    # - or still use AT and rref, but take i_pivots and the 
-    #   columns from AT
-
-    # rows = list(zip(*space))
-    # m = sympy.Matrix(rows)
-    # r, i_pivots = m.rref()
-    # return [r[pivot] for pivot in i_pivots]
-    raise NotImplementedError()
+    AT = sympy.Matrix(space).transpose()
+    _, i_pivots = AT.rref()
+    return [list_utils.flatten(AT.col(i).tolist()) for i in i_pivots]
 
 
 # NOTE: the condition for some vectors {v1...vn} to
