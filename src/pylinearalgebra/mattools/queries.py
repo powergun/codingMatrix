@@ -97,7 +97,7 @@ def col_space(mat, tolist=False):
 
 def null_space(mat, tolist=False):
     m = sympy.Matrix(mat)
-    space = m.rref()[0].nullspace()
+    space = m.nullspace()
     if tolist:
         return [list(v) for v in space]
     return space

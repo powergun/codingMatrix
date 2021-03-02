@@ -12,7 +12,7 @@ class XY:
         # https://matplotlib.org/3.1.0/gallery/color/named_colors.html
 
         if not names:
-            names = list(mcolors.BASE_COLORS) + \
+            names = list(c for c in mcolors.BASE_COLORS if c != 'w') + \
                 list(mcolors.TABLEAU_COLORS)
             self._colors = names
             random.shuffle(self._colors)
