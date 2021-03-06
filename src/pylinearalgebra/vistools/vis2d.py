@@ -79,6 +79,8 @@ class XY:
             text_alpha=0.65,
             shaft_arrow=False,
             color=None,
+            head_width=0.15,
+            head_length=0.4
             ):
         vert = [fr[0], fr[1], to[0] - fr[0], to[1] - fr[1]]
         half = [vert[0], vert[1], vert[2] / 2.0, vert[3] / 2.0]
@@ -86,8 +88,8 @@ class XY:
         if shaft_arrow:
             plt.arrow(
                 *half,
-                head_width=0.15,
-                head_length=0.4,
+                head_width=head_width,
+                head_length=head_length,
                 overhang=1.0,
                 color=c,
                 alpha=alpha,
@@ -104,8 +106,8 @@ class XY:
         else:
             plt.arrow(
                 *vert,
-                head_width=0.15,
-                head_length=0.4,
+                head_width=head_width,
+                head_length=head_length,
                 length_includes_head=True,
                 overhang=1.0,
                 color=c,
@@ -120,6 +122,17 @@ class XY:
                 [fr[0], fr[1]],
                 size=20,
                 alpha=text_alpha)
+
+        if to_text is None and len(to) > 2 and isinstance(to[2], str):
+            to_text = to[2]
+
+        if to_text:
+            plt.annotate(
+                to_text,
+                [to[0], to[1]],
+                size=20,
+                alpha=text_alpha)
+
 
         if shaft_text:
             plt.annotate(
