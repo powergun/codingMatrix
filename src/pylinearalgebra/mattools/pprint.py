@@ -26,7 +26,7 @@ def _pprint(x, width=4, pre='', suf='', end='\n'):
     print('{}{}{}'.format(pre, t.rjust(width), suf), end=end)
 
 
-def pprint(mat):
+def pprint(mat, end=''):
     n_rows, n_cols = _get_shape(mat)
     paren_head = [u'\u23A1', u'\u23A4']
     paren_body = [u'\u23A2', u'\u23A5']
@@ -59,7 +59,9 @@ def pprint(mat):
             for j in range(n_cols):
                 _pprint(row[j], width =max_width + 1, end=' ')
             _pprint('', width=0, suf=paren[1])
-    
+    if end:
+        print(end)
+
 
 if __name__ == '__main__':
     # singleton vector
