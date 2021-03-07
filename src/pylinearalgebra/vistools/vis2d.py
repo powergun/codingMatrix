@@ -35,6 +35,19 @@ class XY:
     def color(self):
         return next(self._color_it)
 
+    def point(self, pt, text=None, color=None, alpha=1.0, text_size=20, text_alpha=1.0):
+        color = color or self.color()
+        if not text and len(pt) > 2:
+            text = str(pt[2])
+        plt.scatter([pt[0]], [pt[1]], color=color, alpha=alpha)
+        if text:
+            plt.annotate(
+                text,
+                [pt[0], pt[1]],
+                size=text_size,
+                alpha=text_alpha)
+
+
     def line(self,
             #
             fr,
@@ -155,4 +168,5 @@ if __name__ == '__main__':
     xy.vector(node2, node3, shaft_text='(2)')
     xy.vector(node3, node4, shaft_text='(5)')
     xy.vector(node1, node4, shaft_text='(4)')
+    xy.point((0.5, 1.5, 'Point'))
     plt.show()
